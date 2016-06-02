@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <Import Project="$(_NTDRIVE)$(_NTROOT)\tools\Microsoft.DevDiv.Settings.targets" Condition="'$(RazzleToolPath)'!=''" />
+  <Import Project="..\ProPowerTools.Open.targets" />
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\14.0@InstallDir)\devenv.exe</StartProgram>
+    <StartArguments>/rootSuffix Exp</StartArguments>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectGuid>{619B53F8-D9A0-4F86-B785-77EA6428366E}</ProjectGuid>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Atmel.Studio.Help.Peek</RootNamespace>
+    <AssemblyName>atmel-studio-peek-f1</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RazzleBuild)' == 'true' ">
+    <AssemblyAttributeClsCompliant>false</AssemblyAttributeClsCompliant>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RazzleBuild)' == '' and '$(ProPowerToolsPackage)' == ''">
+    <!-- We only want to deploy the package if we're being built in Visual Studio (not in Razzle),
+         and if we're being built standalone (not as a part of the Pro Power Tools package). -->
+    <CreateVsixContainer>true</CreateVsixContainer>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <DeployExtension>true</DeployExtension>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DeployExtension>False</DeployExtension>
+    <CreateVsixContainer>False</CreateVsixContainer>
+    <CopyVsixExtensionFiles>True</CopyVsixExtensionFiles>
+    <CopyVsixExtensionLocation>C:\USERS\MORTEN\APPDATA\LOCAL\ATMEL\ATMELSTUDIO\7.0\EXTENSIONS\VRT4ZB0Q.E3Y\</CopyVsixExtensionLocation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.CoreUtility" />
+    <Reference Include="Microsoft.VisualStudio.Editor" />
+    <Reference Include="Microsoft.VisualStudio.Help">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Help Viewer\v2.2\Microsoft.VisualStudio.Help.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Help.Runtime">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft Help Viewer\v2.2\Microsoft.VisualStudio.Help.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Language.Intellisense" />
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0">
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.Data" />
+    <Reference Include="Microsoft.VisualStudio.Text.Internal" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf" />
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop" />
+    <Reference Include="$(vsFrameworkLatest)" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0" />
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0" />
+    <Reference Include="Microsoft.VisualStudio.Utilities" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Utilities">
+      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\Atmel\Studio\7.0\Extensions\Application\Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="EnvDTE" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Documenation\HelpCatalogManager.cs" />
+    <Compile Include="Documenation\HelpSearcher.cs" />
+    <Compile Include="Documenation\TopicExtensions.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="ClippableWindowsFormsHost.cs" />
+    <Compile Include="CommandFilter.cs" />
+    <Compile Include="Peek\F1PeekableItem.cs" />
+    <Compile Include="Peek\F1PeekableItemSource.cs" />
+    <Compile Include="Peek\F1PeekableItemSourceProvider.cs" />
+    <Compile Include="Peek\F1PeekPresentationControl.xaml.cs">
+      <DependentUpon>F1PeekPresentationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Peek\F1PeekResult.cs" />
+    <Compile Include="Peek\F1PeekResultPresentation.cs" />
+    <Compile Include="Peek\F1PeekResultPresenter.cs" />
+    <Compile Include="Peek\F1PeekResultScrollState.cs" />
+    <Compile Include="Peek\F1PeekResultSource.cs" />
+    <Compile Include="Peek\PeekHelpRelationship.cs" />
+    <Compile Include="Protocol\IProtocol.cs" />
+    <Compile Include="Protocol\MsXhelpProtocol.cs" />
+    <Compile Include="Protocol\Native.cs" />
+    <Compile Include="Protocol\Protocol.cs" />
+    <Compile Include="Protocol\ProtocolFactory.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="PeekF1Package.cs" />
+    <Compile Include="TextViewCreationListener.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VSPackage.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <VSCTCompile Include="PeekF1.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
+    </VSCTCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Package.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Peek\F1PeekPresentationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(_NTDRIVE)$(_NTROOT)\tools\Microsoft.DevDiv.targets" Condition="'$(RazzleToolPath)'!=''" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" Condition="'$(RazzleBuild)'==''" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="..\ProPowerTools.targets" Condition="'$(RazzleToolPath)'!=''" />
+</Project>
